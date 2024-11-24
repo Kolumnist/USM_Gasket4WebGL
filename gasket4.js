@@ -11,12 +11,20 @@ let modelViewMatrixLocation, projectionMatrixLocation, texCoordLocation;
 var modelViewMatrix, projectionMatrix, texture;
 
 // Variables referencing HTML elements
-var subdivSlider, subdivText, iterSlider, iterText, startBtn;
+var subdivSlider, subdivText, startBtn;
 var checkTex1, checkTex2, checkTex3, tex1, tex2, tex3;
 
 var theta = [0, 0, 0], move = [0, 0, 0];
-var subdivisions = 3, iterations = 1, scaling = 1;
-var iterTemp = 0, animSeq = 0, animFrame = 0, animFlag = false;
+var subdivisions = 3, scaling = 1;
+var animSequence = 0, animFrame = 0, animFlag = false;
+
+
+// ADDED VARIABLES FOR ASSIGNMENT
+let rotateSpeed = 1, scalingSpeed = 0.005, moveSpeed = 1;
+let xMove, yMove;
+let maxScale = 1.75;
+let endAnimation = false;
+// Could use 2 buttons one to stop the animation and one to end the animation
 
 // Variables for the 3D Sierpinski gasket
 var points = [], colors = [], textures = [];
@@ -71,9 +79,6 @@ function configUIElements()
     subdivSlider = document.getElementById("subdiv-slider");
     subdivText = document.getElementById("subdiv-text");
     
-    iterSlider = document.getElementById("iter-slider");
-    iterText = document.getElementById("iter-text");
-    
     checkTex1 = document.getElementById("check-texture-1");
     checkTex2 = document.getElementById("check-texture-2");
     checkTex3 = document.getElementById("check-texture-3");
@@ -88,13 +93,6 @@ function configUIElements()
 	{
 		subdivisions = event.target.value;
 		subdivText.innerHTML = subdivisions;
-        recompute();
-    };
-
-    iterSlider.onchange = function(event) 
-	{
-		iterations = event.target.value;
-		iterText.innerHTML = iterations;
         recompute();
     };
 
@@ -127,7 +125,8 @@ function configUIElements()
 
     startBtn.onclick = function()
 	{
-		animFlag = true;
+		animFlag = !animFlag;
+        endAnimation = !animFlag;
         toggleUI();
         resetValue();
         animUpdate();
@@ -238,12 +237,16 @@ function recompute()
 // Update the animation frame
 function animUpdate()
 {
-    // Stop the animation frame and return upon completing all sequences
-    if(iterTemp == iterations)
+    // End the animation frame and return upon completing all sequences
+    if(endAnimation)
     {
         window.cancelAnimationFrame(animFrame);
-        toggleUI();
-        animFlag = false;
+        
+        //toggleUI();
+        //animFlag = false;
+
+        stopAnimation = false;
+        animFrame = 0;
         return; // break the self-repeating loop
     }
 
@@ -257,91 +260,53 @@ function animUpdate()
 
     // Switch case to handle the ongoing animation sequence
     // The animation is executed sequentially from case 0 to case n
-    switch(animSeq)
+    switch(animSequence)
     {
-        case 0: // Animation 1: Rotate Right 180°
-            theta[2] -= 1;
+        case 0: // Rotate Right 180
+            theta[2] -= rotateSpeed;
 
             if(theta[2] <= -180)
             {
                 theta[2] = -180;
-                animSeq++;
+                animSequence++;
             }
-
             break;
 
-        case 1: // Animation 2
-            theta[2] += 1;
+        case 1: // Rotate Left 180
+            theta[2] += rotateSpeed;
 
             if(theta[2] >= 0)
             {
                 theta[2] = 0;
-                animSeq++;
+                animSequence++;
             }
-
             break;
 
-        case 2: // Animation 3
-            scaling += 0.02;
+        case 2: // Scaling to appropriate size
+            scaling += scalingSpeed;
             
-            if(scaling >= 4)
+            if(scaling >= maxScale)
             {
-                scaling = 4;
-                animSeq++;
-            }
-
-            break;
-
-        case 3: // Animation 4
-            scaling -= 0.02;
-
-            if(scaling <= 1)
-            {
-                scaling = 1;
-                animSeq++;
-            }
-
-            break;
-
-        case 4: // Animation 5
-            move[0] += 0.0125;
-            move[1] += 0.005;
-
-            if(move[0] >= 3.0 && move[1] >= 1.2)
-            {
-                move[0] = 3.0;
-                move[1] = 1.2;
-                animSeq++;
+                scaling = maxScale;
+                animSequence++;
+                xMove = ((Math.random() - 0.5) * 2);
+                yMove = ((Math.random() - 0.5) * 2);
             }
             break;
 
-        case 5: // Animation 6
-            move[0] -= 0.0125;
-            move[1] -= 0.005;
+        case 3: // Constantly move gasket randomly
+            move[0] += 0.01775 * xMove;
+            move[1] += 0.005 * yMove;
 
-            if(move[0] <= -3.0 && move[1] <= -1.2)
+            if(move[0] >= 1.633 || move[1] >= 0.46 || move[0] <= -1.633 || move[1] <= -0.69)
             {
-                move[0] = -3.0;
-                move[1] = -1.2;
-                animSeq++;
-            }
-            break;
-
-        case 6: // Animation 7
-            move[0] += 0.0125;
-            move[1] += 0.005;
-
-            if(move[0] >= 0 && move[1] >= 0)
-            {
-                move[0] = 0;
-                move[1] = 0;
-                animSeq++;
+                xMove = (Math.random() - 0.5) * 2;
+                yMove = (Math.random() - 0.5) * 2;
             }
             break;
 
         default: // Reset animation sequence
-            animSeq = 0;
-            iterTemp++;
+            stopAnimation = true;
             break;
     }
 
@@ -364,11 +329,10 @@ function animUpdate()
 function toggleUI()
 {
     subdivSlider.disabled = !subdivSlider.disabled;
-    iterSlider.disabled = !iterSlider.disabled;
     checkTex1.disabled = !checkTex1.disabled;
     checkTex2.disabled = !checkTex2.disabled;
     checkTex3.disabled = !checkTex3.disabled;
-    startBtn.disabled = !startBtn.disabled;
+    //startBtn.disabled = !startBtn.disabled;
 }
 
 // Reset all necessary variables to their default values
@@ -377,8 +341,7 @@ function resetValue()
     theta = [0, 0, 0];
     move = [0, 0, 0];
     scaling = 1;
-    animSeq = 0;
-    iterTemp = 0;
+    animSequence = 0;
 }
 
 // Check whether whether a given number value is a power of 2
