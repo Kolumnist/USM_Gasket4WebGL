@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>CPC354 Demo</title>
+
+	<!-- Link CSS, JS, and WebGL -->
+	<!-- webgl-utils.js	: standard utilities from Google to set up a WebGL context -->
+	<!-- initShaders.js	: contains helper functions to compile and link WebGL shaders to the application -->
+	<!-- MV.js			: provides matrix and vector manipulation functions APIs for WebGL -->
+	<!-- DemoJS.js		: your JS file -->
+	<!-- DemoCSS.css	: your CSS file -->
+	<script type="text/javascript" src="Common/webgl-utils.js"></script>
+	<script type="text/javascript" src="Common/initShaders.js"></script>
+	<script type="text/javascript" src="Common/MV.js"></script>
+	<script type="text/javascript" src="gasket4.js"></script>
+	<link rel="stylesheet" type="text/css" href="gasket4.css">
+
+	<!-- Define the vertex shader -->
+	<script id="vertex-shader" type="x-shader/x-vertex">
+		// Declare the input variable(s) to receive per-vertex data from the application
+		attribute vec4 aVertexPosition;
+		attribute vec4 aVertexColor;
+		attribute vec2 aVertexTexCoord;
+
+		// Declare the global variable(s) for draw calls
+		uniform mat4 uProjectionMatrix;
+		uniform mat4 uModelViewMatrix;
+		
+		// Declare the varying variable(s) to pass data to the fragment shader
+		varying vec4 fColor;
+		varying vec2 fTexCoord;
+
+		void main()
+		{
+			gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+			fColor = aVertexColor;
+			fTexCoord = aVertexTexCoord;
+		}
+	</script>
+
+	<!-- Define the fragment shader -->
+	<script id="fragment-shader" type="x-shader/x-fragment">
+		precision mediump float;
+
+		uniform sampler2D uTexture;
+		
+		varying vec4 fColor;
+		varying  vec2 fTexCoord;
+
+		void main()
+		{
+			gl_FragColor = fColor * texture2D(uTexture, fTexCoord);
+		}
+	</script>
+</head>
+
+<body>
+	<!-- Canvas for the graphic rendering -->
+	<div class="canvas">
+		<canvas id="gl-canvas" width="1280" height="720">
+			Error: your browser doesn't support the HTML5 canvas element
+		</canvas>
+		<img id="texture-1" src="https://i.postimg.cc/kMKrJd9B/BG001.jpg" alt="texture 1" crossOrigin = "anonymous" hidden>
+		<img id="texture-2" src="https://i.postimg.cc/m2svh62V/BG002.jpg" alt="texture 2" crossOrigin = "anonymous" hidden>
+		<img id="texture-3" src="https://i.postimg.cc/YqzJFfv7/BG003.jpg" alt="texture 3" crossOrigin = "anonymous" hidden>
+	</div>
+
+	<!-- Panel for parameter customization -->
+	<div class="panel vertical-align">
+		<!-- Slider for number of subdivision -->
+		<div class="param-panel horizontal-align">
+			<div class="slider">
+				No. of Subdivision
+				<br>1<input class="slide" id="subdiv-slider" type="range" min="1" max="5" value="3">5
+			</div>
+			<div class="textbox">
+				<p id="subdiv-text">3</p>
+			</div>
+		</div>
+
+		<!-- Slider for animation loop count -->
+		<div class="param-panel horizontal-align">
+			<div class="slider">
+				No. of Iteration
+				<br>1<input class="slide" id="iter-slider" type="range" min="1" max="5" value="1">5
+			</div>
+			<div class="textbox">
+				<p id="iter-text">1</p>
+			</div>
+		</div>
+
+		<!-- Checkbox for texture -->
+		<div class="param-panel horizontal-align mg-top-bottom">
+			<div class="checkText">Enable Texture 1</div>
+			<input class="checkRadio" id ="check-texture-1" type="radio" name = "radio" checked>
+		</div>
+
+		<div class="param-panel horizontal-align mg-top-bottom">
+			<div class="checkText">Enable Texture 2</div>
+			<input class="checkRadio" id ="check-texture-2" type="radio" name = "radio">
+		</div>
+
+		<div class="param-panel horizontal-align mg-top-bottom">
+			<div class="checkText">Enable Texture 3</div>
+			<input class="checkRadio" id ="check-texture-3" type="radio" name = "radio">
+		</div>
+
+		<!-- Animation start button -->
+		<input id="start-btn" type="button" value="Start Animation">
+	</div>
+</body>
+
+</html>
