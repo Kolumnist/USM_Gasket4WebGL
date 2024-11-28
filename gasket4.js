@@ -21,10 +21,11 @@ var animSequence = 0, animFrame = 0, animFlag = false;
 
 // ADDED VARIABLES FOR ASSIGNMENT
 let rotateSpeed = 1, scalingSpeed = 0.005, moveSpeed = 1;
-let xMove, yMove;
+const xBaseMove = 0.01775, yBaseMove = 0.005;
+let xMove = 0, yMove = 0;
 let maxScale = 1.75;
 let endAnimation = false;
-// Could use 2 buttons one to stop the animation and one to end the animation
+// Could use 3 buttons one to stop the animation and one to end the animation and one to enable 3d animations
 
 // Variables for the 3D Sierpinski gasket
 var points = [], colors = [], textures = [];
@@ -70,19 +71,6 @@ window.onload = function init()
     configureTexture(tex1);
     render();
 }
-
-window.onresize = function() 
-{
-    var min = innerWidth;
-    if (innerHeight < min) 
-    {
-        min = innerHeight;
-    }
-    if (min < canvas.width || min < canvas.height) 
-    {
-        gl.viewport(0, canvas.height-min, min, min);
-    }
- };
 
 // Retrieve all elements from HTML and store in the corresponding variables
 function configUIElements()
@@ -308,14 +296,26 @@ function animUpdate()
             break;
 
         case 3: // Constantly move gasket randomly
-            move[0] += 0.01775 * xMove;
-            move[1] += 0.005 * yMove;
+            move[0] += xBaseMove * xMove;
+            move[1] += yBaseMove * yMove;
 
-            if(move[0] >= 1.633 || move[1] >= 0.46 || move[0] <= -1.633 || move[1] <= -0.69)
+            if (move[0] >= xBaseMove*85 || move[0] <= xBaseMove*-85)
             {
-                xMove = (Math.random() - 0.5) * 2;
-                yMove = (Math.random() - 0.5) * 2;
+                move[0] = xBaseMove*85 * xMove/Math.abs(xMove);
+                xMove = Math.random() * -(xMove/Math.abs(xMove));
             }
+            if (move[1] >= yBaseMove*97)
+            {
+                move[1] = yBaseMove*97 * yMove/Math.abs(yMove);
+                yMove = Math.random() * -(yMove/Math.abs(yMove));
+            }
+            // else if because of the 142 ;/
+            else if (move[1] <= yBaseMove*-142)
+            {
+                move[1] = yBaseMove*142 * yMove/Math.abs(yMove);
+                yMove = Math.random() * -(yMove/Math.abs(yMove));
+            }
+
             break;
 
         default: // Reset animation sequence
