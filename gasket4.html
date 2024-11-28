@@ -20,13 +20,13 @@
 	<!-- Define the vertex shader -->
 	<script id="vertex-shader" type="x-shader/x-vertex">
 		// Declare the input variable(s) to receive per-vertex data from the application
-		attribute vec4 aVertexPosition;
-		attribute vec4 aVertexColor;
-		attribute vec2 aVertexTexCoord;
+		attribute vec4 vPosition;
+		attribute vec4 vColor;
+		attribute vec2 vTexCoord;
 
 		// Declare the global variable(s) for draw calls
-		uniform mat4 uProjectionMatrix;
-		uniform mat4 uModelViewMatrix;
+		uniform mat4 projectionMatrix;
+		uniform mat4 modelViewMatrix;
 		
 		// Declare the varying variable(s) to pass data to the fragment shader
 		varying vec4 fColor;
@@ -34,9 +34,9 @@
 
 		void main()
 		{
-			gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-			fColor = aVertexColor;
-			fTexCoord = aVertexTexCoord;
+			gl_Position = projectionMatrix * modelViewMatrix * vPosition;
+			fColor = vColor;
+			fTexCoord = vTexCoord;
 		}
 	</script>
 
@@ -44,14 +44,14 @@
 	<script id="fragment-shader" type="x-shader/x-fragment">
 		precision mediump float;
 
-		uniform sampler2D uTexture;
+		uniform sampler2D texture;
 		
 		varying vec4 fColor;
 		varying  vec2 fTexCoord;
 
 		void main()
 		{
-			gl_FragColor = fColor * texture2D(uTexture, fTexCoord);
+			gl_FragColor = fColor * texture2D(texture, fTexCoord);
 		}
 	</script>
 </head>

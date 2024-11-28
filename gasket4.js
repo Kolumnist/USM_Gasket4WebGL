@@ -6,7 +6,7 @@
 var canvas, gl, program;
 
 let positionBuffer, colorBuffer, textureBuffer;
-let vertexPosition, vertexColor, vertexTexCoord;
+let vPosition, vColor, vTexCoord;
 let modelViewMatrixLocation, projectionMatrixLocation, texCoordLocation;
 var modelViewMatrix, projectionMatrix, texture;
 
@@ -70,6 +70,19 @@ window.onload = function init()
     configureTexture(tex1);
     render();
 }
+
+window.onresize = function() 
+{
+    var min = innerWidth;
+    if (innerHeight < min) 
+    {
+        min = innerHeight;
+    }
+    if (min < canvas.width || min < canvas.height) 
+    {
+        gl.viewport(0, canvas.height-min, min, min);
+    }
+ };
 
 // Retrieve all elements from HTML and store in the corresponding variables
 function configUIElements()
@@ -162,32 +175,32 @@ function configWebGL()
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(points), gl.STATIC_DRAW);
 
-    vertexPosition = gl.getAttribLocation(program, "aVertexPosition");
-    gl.vertexAttribPointer(vertexPosition, 4, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vertexPosition);
+    vPosition = gl.getAttribLocation(program, "vPosition");
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vPosition);
 
     // Set colors
     colorBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(colors), gl.STATIC_DRAW);
     
-    vertexColor = gl.getAttribLocation(program, "aVertexColor");
-    gl.vertexAttribPointer(vertexColor, 4, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vertexColor);
+    vColor = gl.getAttribLocation(program, "vColor");
+    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vColor);
 
     // Set textures
     textureBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(textures), gl.STATIC_DRAW);
     
-    vertexTexCoord = gl.getAttribLocation(program, "aVertexTexCoord");
-    gl.vertexAttribPointer(vertexTexCoord, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vertexTexCoord);
+    vTexCoord = gl.getAttribLocation(program, "vTexCoord");
+    gl.vertexAttribPointer(vTexCoord, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vTexCoord);
 
     // Get the location of the uniform variables within a compiled shader program
-    projectionMatrixLocation = gl.getUniformLocation(program, "uProjectionMatrix");
-    modelViewMatrixLocation = gl.getUniformLocation(program, "uModelViewMatrix");
-    texCoordLocation = gl.getUniformLocation(program, "uTexture");
+    projectionMatrixLocation = gl.getUniformLocation(program, "projectionMatrix");
+    modelViewMatrixLocation = gl.getUniformLocation(program, "modelViewMatrix");
+    texCoordLocation = gl.getUniformLocation(program, "texture");
 }
 
 // Render the graphics for viewing
