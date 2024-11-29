@@ -128,6 +128,19 @@ function configUIElements()
 	{
 		animFlag = !animFlag;
         endAnimation = !animFlag;
+        
+        switch(startBtn.value)
+        {
+            case "Start Animation":
+                startBtn.value = "Stop Animation";
+                break;
+            case "Stop Animation":
+                startBtn.value = "Restart Animation";
+                break;
+            default:
+                startBtn.value = "Start Animation";
+        }
+
         toggleUI();
         resetValue();
         animUpdate();
@@ -417,7 +430,7 @@ function tetra(a, b, c, d)
 function divideTetra(a, b, c, d, count)
 {
     // Check for end of recursion
-    if(count === 0)
+    if(count == 0)
     {
         tetra(a, b, c, d);
     }
