@@ -145,6 +145,32 @@ function configUIElements()
         resetValue();
         animUpdate();
 	};
+	// color picker functionality
+	
+	document.getElementById("color1").addEventListener("input", (e) => {
+        baseColors[0] = hexToRGBA(e.target.value);
+        recompute();
+        });
+	document.getElementById("color2").addEventListener("input", (e) => {
+        baseColors[1] = hexToRGBA(e.target.value);
+        recompute();
+        });
+	document.getElementById("color3").addEventListener("input", (e) => {
+        baseColors[2] = hexToRGBA(e.target.value);
+        recompute();
+        });
+	 document.getElementById("color4").addEventListener("input", (e) => {
+        baseColors[3] = hexToRGBA(e.target.value);
+        recompute();
+        });
+	// Convert hex color to vec4 RGBA format
+    function hexToRGBA(hex) {
+        const bigint = parseInt(hex.slice(1), 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return vec4(r / 255, g / 255, b / 255, 1.0);
+        }
 }
 
 // Configure WebGL Settings
@@ -359,6 +385,19 @@ function toggleUI()
     checkTex2.disabled = !checkTex2.disabled;
     checkTex3.disabled = !checkTex3.disabled;
     //startBtn.disabled = !startBtn.disabled;
+    // Toggle color pickers and their associated toggle buttons
+    const colorPickers = ["color1", "color2", "color3", "color4"];
+    const toggleButtons = ["toggle-color1", "toggle-color2", "toggle-color3", "toggle-color4"];
+
+    colorPickers.forEach((pickerId) => {
+        const colorPicker = document.getElementById(pickerId);
+        colorPicker.disabled = !colorPicker.disabled; // Toggle the color picker
+    });
+
+    toggleButtons.forEach((buttonId) => {
+        const toggleButton = document.getElementById(buttonId);
+        toggleButton.disabled = !toggleButton.disabled; // Toggle the button
+    });
 }
 
 // Reset all necessary variables to their default values
@@ -403,19 +442,20 @@ function configureTexture(tex)
 /*-----------------------------------------------------------------------------------*/
 
 // Form a triangle
-function triangle(a, b, c, color)
-{
-    colors.push(baseColors[color]);
+function triangle(a, b, c, color) {
+    colors.push(baseColors[color]); 
     points.push(a);
     textures.push(texCoord[0]);
+
     colors.push(baseColors[color]);
     points.push(b);
     textures.push(texCoord[1]);
+
     colors.push(baseColors[color]);
     points.push(c);
     textures.push(texCoord[2]);
-    console.log(points);
 }
+
 
 // Form a tetrahedron with different color for each side
 function tetra(a, b, c, d)
