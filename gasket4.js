@@ -134,6 +134,9 @@ function configUIElements()
             case "Start Animation":
                 startBtn.value = "Stop Animation";
                 break;
+            case "Restart Animation":
+                startBtn.value = "Stop Animation";
+                break;
             case "Stop Animation":
                 startBtn.value = "Restart Animation";
                 break;
