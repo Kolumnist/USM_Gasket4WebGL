@@ -385,19 +385,7 @@ function toggleUI()
     checkTex2.disabled = !checkTex2.disabled;
     checkTex3.disabled = !checkTex3.disabled;
     //startBtn.disabled = !startBtn.disabled;
-    // Toggle color pickers and their associated toggle buttons
-    const colorPickers = ["color1", "color2", "color3", "color4"];
-    const toggleButtons = ["toggle-color1", "toggle-color2", "toggle-color3", "toggle-color4"];
-
-    colorPickers.forEach((pickerId) => {
-        const colorPicker = document.getElementById(pickerId);
-        colorPicker.disabled = !colorPicker.disabled; // Toggle the color picker
-    });
-
-    toggleButtons.forEach((buttonId) => {
-        const toggleButton = document.getElementById(buttonId);
-        toggleButton.disabled = !toggleButton.disabled; // Toggle the button
-    });
+   
 }
 
 // Reset all necessary variables to their default values
