@@ -7,17 +7,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #1e293b, #4f46e5); /* Dark blue to purple gradient */
+    background: linear-gradient(135deg, #4c1d95, #1e3a8a); /* Purple to Blue Gradient */
     font-family: 'Arial', sans-serif;
-    color: #ffffff; /* Universal text color */
+    color: #f8fafc;
 }
 
 /* Canvas Container */
 .canvas {
-    border: 10px solid #3b82f6;
+    border: 10px solid #1e3a8a;
     border-radius: 15px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
-    background-color: #f8fafc; /* Light background for contrast */
+    background-color: #ffffff;
 }
 
 /* Panels */
@@ -26,16 +26,16 @@ body {
     width: 350px;
     padding: 20px;
     border-radius: 15px;
-    background: #1e293b; /* Dark background for contrast */
+    background: #312e81; /* Dark Purple Background */
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
-    color: #f8fafc;
+    color: #ffffff; /* White text */
 }
 
 /* Panel Title */
 .panel h3 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #4f46e5; /* Complementary purple text */
+    color: #ffffff;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -45,14 +45,26 @@ body {
     margin-bottom: 20px;
     font-size: 1rem;
     font-weight: bold;
-    color: #ffffff; /* White text for visibility */
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.slider .slide-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
 }
 
 .slider .slide {
-    width: 100%;
-    margin-top: 10px;
+    width: 80%; /* Reduced width for better alignment */
+    margin: 0 10px;
     -webkit-appearance: none;
-    background: #3b82f6; /* Bright blue for focus */
+    background: #e2e8f0;
     height: 8px;
     border-radius: 10px;
     outline: none;
@@ -60,14 +72,14 @@ body {
 }
 
 .slider .slide:hover {
-    background: #2563eb; /* Darker blue on hover */
+    background: #94a3b8;
 }
 
 .slider .slide::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 20px;
     height: 20px;
-    background: #4f46e5; /* Purple for slider thumb */
+    background: #3b82f6; /* Bright Blue */
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
@@ -76,9 +88,48 @@ body {
 .slider .slide::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: #4f46e5;
+    background: #3b82f6;
     border-radius: 50%;
     cursor: pointer;
+}
+
+/* Labels and Slider Numbers */
+.slider span {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #94a3b8; /* Light Gray for Numbers */
+    position: absolute;
+}
+
+.slider span.start {
+    left: 0; /* Position 0 to the start of the slider */
+    transform: translateX(-50%);
+}
+
+.slider span.end {
+    right: 0; /* Position 5 to the end of the slider */
+    transform: translateX(50%);
+}
+
+/* Textboxes for Subdivision and Iteration */
+.textbox {
+    margin-left: 10px; /* Adjusted closer to slider */
+    padding: 5px;
+    width: 50px; /* Smaller size */
+    height: 35px;
+    background: #2563eb; /* Bright Blue Background */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem; /* Adjusted font size */
+    font-weight: bold;
+    color: #f8fafc;
+    box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+.textbox p {
+    margin: 0;
 }
 
 /* Buttons */
@@ -88,7 +139,7 @@ body {
     height: 50px;
     border: none;
     border-radius: 25px;
-    background: #22c55e; /* Bright green button */
+    background: #3b82f6;
     color: #f8fafc;
     font-weight: bold;
     font-size: 1rem;
@@ -98,14 +149,14 @@ body {
 }
 
 #start-btn:hover {
-    background: #16a34a; /* Darker green on hover */
+    background: #1d4ed8;
     transform: translateY(-3px);
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
 }
 
 #start-btn:active {
     transform: translateY(2px);
-    background: #15803d;
+    background: #1e40af;
 }
 
 /* Color Pickers */
@@ -129,31 +180,22 @@ body {
 .param-panel label {
     font-size: 1rem;
     font-weight: bold;
-    color: #ffffff; /* White text for labels */
+    color: #ffffff;
     margin-top: 10px;
     display: block;
 }
 
 /* Typography */
-.textbox {
-    margin-top: 10px;
-    padding: 10px;
-    width: 80px;
-    height: 50px;
-    background: #3b82f6; /* Blue background for contrast */
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
+.param-panel .checkText {
+    font-size: 1rem;
     font-weight: bold;
-    color: #f8fafc; /* White text for visibility */
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
 }
 
 /* Radio Buttons */
-.checkRadio {
-    accent-color: #4f46e5; /* Purple accent for radio buttons */
+.param-panel .checkRadio {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 }
 
