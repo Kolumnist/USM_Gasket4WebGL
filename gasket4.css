@@ -1,131 +1,174 @@
+/* General Body Styling */
 body {
     width: 100vw;
     height: 100vh;
-    padding: 0;
     margin: 0;
-    text-decoration: none;
+    padding: 0;
     display: flex;
-    flex-direction: row;
-    align-items: stretch; /* Make sections match height */
     justify-content: center;
-    background: linear-gradient(to bottom, #0f0f3f, #1c3b72); /* Add gradient background */
+    align-items: center;
+    background: linear-gradient(135deg, #1e293b, #4f46e5); /* Dark blue to purple gradient */
+    font-family: 'Arial', sans-serif;
+    color: #ffffff; /* Universal text color */
 }
 
+/* Canvas Container */
 .canvas {
-    border: 10px solid #4a4e69;
-    border-radius: 10px;
-    background: #ffffff;
-    flex: 3; /* Set proportional size */
+    border: 10px solid #3b82f6;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    background-color: #f8fafc; /* Light background for contrast */
 }
 
+/* Panels */
 .panel {
-    margin-left: 10px;
-    width: 400px; /* Set fixed width */
-    height: auto; /* Adjust height to match canvas */
-    border: 10px solid #4a4e69;
-    border-radius: 10px;
-    background-color: #344c8c; /* Updated to a more appealing dark blue */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    flex: 1; /* Adjust proportional size */
-    padding: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    margin-left: 20px;
+    width: 350px;
+    padding: 20px;
+    border-radius: 15px;
+    background: #1e293b; /* Dark background for contrast */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    color: #f8fafc;
 }
 
-.param-panel {
-    width: 100%; /* Adjust width */
-    margin: 10px 0; /* Add spacing */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.slider {
-    margin-top: 5px;
+/* Panel Title */
+.panel h3 {
+    font-size: 1.5rem;
     font-weight: bold;
-    font-size: medium;
-    color: #ffffff;
+    color: #4f46e5; /* Complementary purple text */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Sliders */
+.slider {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff; /* White text for visibility */
 }
 
 .slider .slide {
-    width: 80%; /* Adjust width for consistency */
-    padding-top: 10px;
+    width: 100%;
+    margin-top: 10px;
+    -webkit-appearance: none;
+    background: #3b82f6; /* Bright blue for focus */
+    height: 8px;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
 }
 
+.slider .slide:hover {
+    background: #2563eb; /* Darker blue on hover */
+}
+
+.slider .slide::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4f46e5; /* Purple for slider thumb */
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.slider .slide::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4f46e5;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Buttons */
+#start-btn {
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+    background: #22c55e; /* Bright green button */
+    color: #f8fafc;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+#start-btn:hover {
+    background: #16a34a; /* Darker green on hover */
+    transform: translateY(-3px);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+#start-btn:active {
+    transform: translateY(2px);
+    background: #15803d;
+}
+
+/* Color Pickers */
+.param-panel input[type="color"] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.param-panel input[type="color"]:hover {
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+/* Labels */
+.param-panel label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff; /* White text for labels */
+    margin-top: 10px;
+    display: block;
+}
+
+/* Typography */
 .textbox {
-    width: 60px; /* Reduced size */
-    height: 60px;
-    background: #5c87e6; /* Match panel theme */
-    border: 5px solid #a6d1ff;
+    margin-top: 10px;
+    padding: 10px;
+    width: 80px;
+    height: 50px;
+    background: #3b82f6; /* Blue background for contrast */
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.textbox p {
-    color: #ffffff;
-    text-align: center;
+    font-size: 1.2rem;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 1;
+    color: #f8fafc; /* White text for visibility */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.checkText {
-    width: 150px;
-    font-weight: bold;
-    font-size: medium;
-    color: #ffffff;
-}
-
+/* Radio Buttons */
 .checkRadio {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-.color-picker-container {
-    display: flex;
-    justify-content: space-evenly;
-    width: 90%;
-    margin: 10px 0;
-}
-
-.color-picker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.color-picker label {
-    font-size: small;
-    color: #ffffff;
-    margin-bottom: 5px;
-}
-
-#start-btn {
-    width: 90%;
-    height: 60px;
-    background: #28a745;
-    border: none;
-    border-radius: 10px;
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 20px;
+    accent-color: #4f46e5; /* Purple accent for radio buttons */
     cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s;
 }
 
-#start-btn:hover {
-    background: #218838;
-    transform: translateY(-2px);
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        padding: 20px;
+    }
 
-#start-btn:active {
-    background: #1e7e34;
-    transform: translateY(1px);
+    .canvas {
+        margin-bottom: 20px;
+    }
+
+    .panel {
+        width: 90%;
+    }
 }
