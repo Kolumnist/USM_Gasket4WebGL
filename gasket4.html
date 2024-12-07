@@ -69,23 +69,32 @@
 
 	<!-- Panel for parameter customization -->
 	<div class="panel vertical-align">
-		<!-- Slider for number of subdivision -->
-		<div class="param-panel horizontal-align">
-			<div class="slider">
-				No. of Subdivision
-				<br>0<input class="slide" id="subdiv-slider" type="range" min="0" max="5" value="3">5
-			</div>
-			<div class="textbox">
-				<p id="subdiv-text">3</p>
-			</div>
-		</div>
 
-		<!-- Slider for animation loop count -->
-		<div class="param-panel horizontal-align">
-			<div class="slider">
-				No. of Iteration
-				<br>1<input class="slide" id="iter-slider" type="range" min="1" max="5" value="1">5
-			</div>
+        <!-- Slider for number of subdivision -->
+       <div class="param-panel horizontal-align">
+        <div class="slider">
+            <label for="subdiv-slider">No. of Subdivision</label>
+            <div class="slider-container">
+                <span class="start">0</span>
+                <input class="slide" id="subdiv-slider" type="range" min="0" max="5" value="3">
+                <span class="end">5</span>
+            </div>
+        </div>
+        <div class="textbox">
+            <p id="subdiv-text">3</p>
+        </div>
+    </div>
+
+    <!-- Slider for animation loop count -->
+    <div class="param-panel horizontal-align">
+        <div class="slider">
+            <label for="iter-slider">No. of Iteration</label>
+            <div class="slider-container">
+                <span class="start">1</span>
+                <input class="slide" id="iter-slider" type="range" min="1" max="5" value="1">
+                <span class="end">5</span>
+            </div>
+        </div>
 			<div class="textbox">
 				<p id="iter-text">1</p>
 			</div>
@@ -109,22 +118,22 @@
                 <!-- Color Customization Section -->
                 <div class="param-panel horizontal-align">
                 <div>
-		<label for="color1" style="color: black;">Color 1</label>
+		<label for="color1" style="color: white;">Color 1</label>
                 <input type="color" id="color1" value="#ff0040">
 
                 </div>
                 <div>
-                 <label for="color2" style="color: black;">Color 2</label>
+                 <label for="color2" style="color: white;">Color 2</label>
                 <input type="color" id="color2" value="#00e5ff">
 
                 </div>
                  <div>
-                 <label for="color3" style="color: black;">Color 3</label>
+                 <label for="color3" style="color: whitek;">Color 3</label>
                 <input type="color" id="color3" value="#3333ff">
         
                 </div>
                 <div>
-               <label for="color4" style="color: black;">Color 4</label>
+               <label for="color4" style="color: white;">Color 4</label>
                 <input type="color" id="color4" value="#000000">
         
                 </div>
