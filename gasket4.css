@@ -42,27 +42,31 @@ body {
 
 /* Sliders */
 .slider {
-    margin-bottom: 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 20px;
     position: relative;
 }
 
-.slider .slide-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    position: relative;
+.slider .start,
+.slider .end {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #94a3b8; /* Light Gray */
+}
+
+.slider .start {
+    margin-right: 10px; /* Adjust space between the number and slider */
+}
+
+.slider .end {
+    margin-left: 10px; /* Adjust space between the number and slider */
 }
 
 .slider .slide {
-    width: 80%; /* Reduced width for better alignment */
-    margin: 0 10px;
+    flex-grow: 1; /* Allow the slider to take up the remaining space */
+    margin: 0 10px; /* Add some space around the slider */
     -webkit-appearance: none;
     background: #e2e8f0;
     height: 8px;
@@ -91,24 +95,6 @@ body {
     background: #3b82f6;
     border-radius: 50%;
     cursor: pointer;
-}
-
-/* Labels and Slider Numbers */
-.slider span {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #94a3b8; /* Light Gray for Numbers */
-    position: absolute;
-}
-
-.slider span.start {
-    left: 0; /* Position 0 to the start of the slider */
-    transform: translateX(-50%);
-}
-
-.slider span.end {
-    right: 0; /* Position 5 to the end of the slider */
-    transform: translateX(50%);
 }
 
 /* Textboxes for Subdivision and Iteration */
