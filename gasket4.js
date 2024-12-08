@@ -89,7 +89,7 @@ function configUIElements()
     tex3 = document.getElementById("texture-3");
     
     startBtn = document.getElementById("start-btn");
-
+    // Listen for changes on the subdivision slider.
     subdivSlider.onchange = function(event) 
 	{
 		subdivisions = event.target.value;
@@ -308,6 +308,7 @@ function animUpdate()
 
     // Switch case to handle the ongoing animation sequence
     // The animation is executed sequentially from case 0 to case n
+    // Multiply by the animationSpeed for the speed at which the animation runs
     switch(animSequence)
     {
         case 0: // Rotate Right 180
