@@ -81,7 +81,7 @@ function configUIElements()
     subdivText = document.getElementById("subdiv-text");
     
     checkTex1 = document.getElementById("check-texture-1");
-    checkTex2 = document.getElementById("check-texture-2");
+   	 checkTex2 = document.getElementById("check-texture-2");
     checkTex3 = document.getElementById("check-texture-3");
     
     tex1 = document.getElementById("texture-1");
@@ -271,7 +271,7 @@ function recompute()
     // Reset points and colors for render update
     points = [];
     colors = [];
-    textures=[];
+    
     
     divideTetra(vertices[0], vertices[1], vertices[2], vertices[3], subdivisions);
     configWebGL();
