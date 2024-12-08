@@ -9,6 +9,7 @@ let positionBuffer, colorBuffer, textureBuffer;
 let vPosition, vColor, vTexCoord;
 let modelViewMatrixLocation, projectionMatrixLocation, texCoordLocation;
 var modelViewMatrix, projectionMatrix, texture;
+let animationSpeed = 1; // Default animation speed
 
 // Variables referencing HTML elements
 var subdivSlider, subdivText, startBtn;
@@ -148,6 +149,11 @@ function configUIElements()
         resetValue();
         animUpdate();
 	};
+	document.getElementById("speed-slider").addEventListener("input", (e) => {
+          animationSpeed = parseFloat(e.target.value); // Update animation speed
+        document.getElementById("speed-text").textContent = `${animationSpeed}x`; // Update displayed value
+        });
+
 	// color picker functionality
 	
 	document.getElementById("color1").addEventListener("input", (e) => {
@@ -278,6 +284,7 @@ function recompute()
     render();
 }
 
+
 // Update the animation frame
 function animUpdate()
 {
@@ -307,7 +314,7 @@ function animUpdate()
     switch(animSequence)
     {
         case 0: // Rotate Right 180
-            theta[2] -= rotateSpeed;
+            theta[2] -= rotateSpeed * animationSpeed;
 
             if(theta[2] <= -180)
             {
@@ -317,7 +324,7 @@ function animUpdate()
             break;
 
         case 1: // Rotate Left 180
-            theta[2] += rotateSpeed;
+            theta[2] += rotateSpeed * animationSpeed;
 
             if(theta[2] >= 0)
             {
@@ -327,7 +334,7 @@ function animUpdate()
             break;
 
         case 2: // Scaling to appropriate size
-            scaling += scalingSpeed;
+            scaling += scalingSpeed * animationSpeed;
             
             if(scaling >= maxScale)
             {
@@ -339,8 +346,8 @@ function animUpdate()
             break;
 
         case 3: // Constantly move gasket randomly
-            move[0] += xBaseMove * xMove;
-            move[1] += yBaseMove * yMove;
+            move[0] += xBaseMove * xMove * animationSpeed;
+            move[1] += yBaseMove * yMove * animationSpeed;
 
             if (move[0] >= xBaseMove*85 || move[0] <= xBaseMove*-85)
             {
