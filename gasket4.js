@@ -5,7 +5,7 @@
 // Common variables
 var canvas, gl, program;
 
-let positionBuffer, colorBuffer, textureBuffer,vTexCoord;
+let positionBuffer, colorBuffer, textureBuffer;
 let vPosition, vColor, vTexCoord;
 let modelViewMatrixLocation, projectionMatrixLocation, texCoordLocation;
 var modelViewMatrix, projectionMatrix, texture;
