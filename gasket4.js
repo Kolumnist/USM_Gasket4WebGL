@@ -5,7 +5,7 @@
 // Common variables
 var canvas, gl, program;
 
-let positionBuffer, colorBuffer, textureBuffer;
+let positionBuffer, colorBuffer, textureBuffer,vTexCoord;
 let vPosition, vColor, vTexCoord;
 let modelViewMatrixLocation, projectionMatrixLocation, texCoordLocation;
 var modelViewMatrix, projectionMatrix, texture;
@@ -85,7 +85,7 @@ function configUIElements()
     checkTex3 = document.getElementById("check-texture-3");
     
     tex1 = document.getElementById("texture-1");
-	tex2 = document.getElementById("texture-2");
+    tex2 = document.getElementById("texture-2");
     tex3 = document.getElementById("texture-3");
     
     startBtn = document.getElementById("start-btn");
@@ -270,7 +270,8 @@ function recompute()
 {
     // Reset points and colors for render update
     points = [];
-	colors = [];
+    colors = [];
+    textures=[];
     
     divideTetra(vertices[0], vertices[1], vertices[2], vertices[3], subdivisions);
     configWebGL();
